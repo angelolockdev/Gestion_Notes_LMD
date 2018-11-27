@@ -231,10 +231,6 @@ public class BaseDao {
 			sql += " ORDER BY rand() ";
 		if (page <= 0)
 			page = 1;
-		if (limit > 0) {
-			int offset = (page - 1) * limit;
-			sql += " LIMIT " + offset + ", " + limit;
-		}
 		result = executeRequests(connection, sql, classe, page, limit, values);
 		return result;
 	}
@@ -315,7 +311,7 @@ public class BaseDao {
 					} else if (get.getReturnType().equals(DateSimple.class)) {
 						java.sql.Timestamp d = rSet.getTimestamp(col);
 						set.invoke(obj, new DateSimple(d.getTime()));
-					} else {
+					} else { 
 						set.invoke(obj, rSet.getObject(col));
 					}
 				}

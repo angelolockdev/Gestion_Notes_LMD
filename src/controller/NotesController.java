@@ -3,6 +3,7 @@ package controller;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,7 +38,7 @@ public class NotesController {
 		Connection connection = null;
 		try {
 			connection = UtilDb.getConnection();
-			List<Notes> listeNotes = NotesMetier.getNotes(connection, idetudiant, idmatiere) ;
+			Map<String, Object> listeNotes = NotesMetier.getNotes(connection, idetudiant, idmatiere) ;
 			map.put("listeNotes", listeNotes);
 		 
 		} catch (Exception e) {

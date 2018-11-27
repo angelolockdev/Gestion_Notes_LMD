@@ -27,7 +27,7 @@ public class UtilDb {
 			String className = prop.getProperty("driverClassName", "com.mysql.jdbc.Driver");
 			Class.forName(className);
 			connection = DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+dbname+"?useSSL=true&useUnicode=true&characterEncoding=UTF-8", user, password);
-			
+			 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

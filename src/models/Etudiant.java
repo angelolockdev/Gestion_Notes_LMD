@@ -1,5 +1,6 @@
 package models;
 
+import utils.DateSimple;
 
 public class Etudiant extends BaseModel{
 	public static final String PRETORIAT = "ETU";
@@ -8,9 +9,8 @@ public class Etudiant extends BaseModel{
 	private String numeromatricule;
 	private String nom;
 	private String prenom;
-	private String dateNaissance;
-
-	 
+	private DateSimple datenaissance;
+ 
 	public Etudiant(String nom, String prenom) {
 		super();
 		this.nom = nom;
@@ -42,10 +42,10 @@ public class Etudiant extends BaseModel{
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-	public String getDateNaissance() {
-		return dateNaissance;
+	public DateSimple getDatenaissance() {
+		return datenaissance;
 	}
-	public void setDateNaissance(String dateNaissance) {
-		this.dateNaissance = dateNaissance;
+	public void setDatenaissance(DateSimple datenaissance) {
+		this.datenaissance = datenaissance;
 	} 
 }

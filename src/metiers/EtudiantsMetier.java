@@ -8,34 +8,37 @@ import java.util.List;
 import java.util.Map;
 
 import dao.BaseDao;
+import models.Etudiant;
 import models.Notes;
 import models.ResultatExamen;  
 
-public class NotesMetier {
+public class EtudiantsMetier {
  
-	public static Map<String, Object>  getNotes(Connection connection,
-			long idetudiant, long idmatiere) throws Exception {
-		Map<String, Object> result = new HashMap<>();
-		String where = "";
-		List<Notes> ret = new ArrayList<Notes>() ; 
-		try {
-			
-			if(idetudiant!=0 && idmatiere==0) {
-				where = "idetudiant=?";
-				ret = BaseDao.select(connection,
-						"notes", Notes.class, where,
-						null, "desc", 0, 1, idetudiant);
-			}else if(idetudiant!=0 && idmatiere!=0) {
-				where = "idetudiant = ? AND idmatiere = ? " ;
-				ret = BaseDao.select(connection,
-						"notes", Notes.class, where,
-						null, null, 0, 1, idetudiant, idmatiere);
-			} 
-			result.put("listeNotes", ret);
-		} catch (Exception e) {
+	public static  Map<String, Object> listeEtudiants(Connection connection) throws SQLException {
+		 Map<String, Object> result = new HashMap<>();
+		 
+		List<Etudiant> ret = new ArrayList<Etudiant>() ; 
+		try { 
+			ret = BaseDao.select(connection, "etudiant", Etudiant.class, null, null, null, 0, 1); 
+			result.put("listeEtudiants", ret);
+		} catch (SQLException e) {
 			throw e;
 		}
 		return result;
+	}
+	public static Etudiant listeEtudiantsBy(Connection connection, long id) throws SQLException {
+		//Map<String, Object> result = new HashMap<>();
+		 
+		 Etudiant  ret = new Etudiant () ; 
+		try {
+			
+			ret = BaseDao.findById(connection, "etudiant", Etudiant.class, id) ;
+			System.out.println("Etudiant = "+ret.getNom()+" , "+ret.getPrenom());
+			//result.put("listeNotes", ret);
+		} catch (SQLException e) {
+			throw e;	
+		}
+		return ret;
 	}
 
 	public static void insertNotes(Connection connection, long idetudiant, long idmatiere, double note, String anneedeb, String anneefin, int mention) throws Exception {
