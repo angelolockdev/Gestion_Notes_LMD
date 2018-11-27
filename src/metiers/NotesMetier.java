@@ -13,9 +13,9 @@ import models.ResultatExamen;
 
 public class NotesMetier {
  
-	public static Map<String, Object> getNotes(Connection connection,
+	public static /*Map<String, Object>*/List<Notes> getNotes(Connection connection,
 			long idetudiant, long idmatiere) throws Exception {
-		Map<String, Object> result = new HashMap<>();
+		//Map<String, Object> result = new HashMap<>();
 		String where = "";
 		List<Notes> ret = new ArrayList<Notes>() ; 
 		try {
@@ -24,18 +24,18 @@ public class NotesMetier {
 				where = "idetudiant=?";
 				ret = BaseDao.select(connection,
 						"notes", Notes.class, where,
-						"efficacite", "desc", 0, 1, idetudiant);
+						null, "desc", 0, 1, idetudiant);
 			}else if(idetudiant!=0 && idmatiere!=0) {
 				where = "idetudiant = ? AND idmatiere = ? " ;
 				ret = BaseDao.select(connection,
 						"notes", Notes.class, where,
 						null, null, 0, 1, idetudiant, idmatiere);
 			} 
-			result.put("listeNotes", ret);
+			//result.put("listeNotes", ret);
 		} catch (Exception e) {
 			throw e;
 		}
-		return result;
+		return ret;
 	}
 
 	public static void insertNotes(Connection connection, long idetudiant, long idmatiere, double note, String anneedeb, String anneefin, int mention) throws Exception {
