@@ -6,10 +6,18 @@ public class Notes extends BaseModel{
 	private Long idetudiant;
 	private Long idmatiere;
 	private Double note;
+	private Double noterepechage;
 	private String anneedeb;
 	private String anneefin;
 	private Integer mention;
 	
+	
+	public Double getNoterepechage() {
+		return noterepechage;
+	}
+	public void setNoterepechage(Double noterepechage) {
+		this.noterepechage = noterepechage;
+	}
 	public Integer getMention() {
 		return mention;
 	}
@@ -54,14 +62,18 @@ public class Notes extends BaseModel{
 	public void setAnneefin(String anneefin) {
 		this.anneefin = anneefin;
 	}
-	public Notes(Long id, String table, Long idetudiant, Long idmatiere, Double note, String anneedeb,
-			String anneefin) {
-		super(id, table);
+	 
+	public Notes(Long id, Long idetudiant, Long idmatiere, Double note, Double noterepechage, String anneedeb,
+			String anneefin, Integer mention) {
+		super();
+		this.id = id;
 		this.idetudiant = idetudiant;
 		this.idmatiere = idmatiere;
 		this.note = note;
+		this.noterepechage = noterepechage;
 		this.anneedeb = anneedeb;
 		this.anneefin = anneefin;
+		this.mention = mention;
 	}
 	public Notes(Long id, String table) {
 		super(id, table);

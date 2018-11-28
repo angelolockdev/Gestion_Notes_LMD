@@ -9,7 +9,16 @@ public class Matiere extends BaseModel{
 	private String designation;
 	private String abreviation;
 	private Integer coefficient;
+	private Long equivalent;
 	
+	public Long getEquivalent() {
+		return equivalent;
+	}
+
+	public void setEquivalent(Long equivalent) {
+		this.equivalent = equivalent;
+	}
+
 	public Matiere() {
 		super();
 	}
@@ -44,13 +53,14 @@ public class Matiere extends BaseModel{
 	public void setCoefficient(Integer coefficient) {
 		this.coefficient = coefficient;
 	}
-	public Matiere(Long id, String table, Long idniveau, Integer optionM, String designation, String abreviation, Integer coefficient) {
+	public Matiere(Long id, String table, Long idniveau, Integer optionM, String designation, String abreviation, Integer coefficient, Long equivalent) {
 		super(id, table);
 		this.idniveau = idniveau;
 		this.optionM = optionM;
 		this.designation = designation;
 		this.abreviation = abreviation;
 		this.coefficient = coefficient;
+		this.equivalent = equivalent;
 	}
 	
 	public Integer getOptionM() {

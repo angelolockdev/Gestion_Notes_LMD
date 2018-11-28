@@ -4,7 +4,7 @@ public class MentionUtils {
 	
 	public static String getMentionBy(int mention) {
 		String ret = "";
-		switch(mention) {
+		switch(mention) { 
 			case 10:
 				ret = "Passable";break;
 			case 20:
