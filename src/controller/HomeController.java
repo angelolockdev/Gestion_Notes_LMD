@@ -1,9 +1,7 @@
 package controller;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.sql.SQLException; 
 import java.util.List;
 import java.util.Map;
 
@@ -29,17 +27,21 @@ public class HomeController {
 		Connection connection = null;
 		try {
 			connection = UtilDb.getConnection();
-			List<Etudiant> listeEtudiant = getListe() ;
 			Map<String, Object> result = EtudiantsMetier.listeEtudiants(connection);
 			
-			 for(Object temp1 : result.values()) {  
+			System.out.println("Resultat = "+result.get("listeEtudiants"));
+			
+			/*for(Etudiant temp : result) {  
 				//result.put("etudiant", temp);
-				Etudiant temp = (Etudiant)temp1;
+				System.out.println(" Etudiant : "+temp.getNumeromatricule()+" , "+temp.getNom()+" , "+temp.getPrenom() +" , "+temp.getDatenaissance());
+			}*/ 
+			 
+			List<Etudiant> liste = (List<Etudiant>) result.get("listeEtudiants");
+			System.out.println("Size Etudiants = "+liste.size());
+			for(Etudiant temp : liste) {   
 				System.out.println(" Etudiant : "+temp.getNumeromatricule()+" , "+temp.getNom()+" , "+temp.getPrenom() +" , "+temp.getDatenaissance());
 			} 
-			 
-			
-			map.put("listeEtudiant", result);
+			map.put("listeEtudiant", liste);
 		 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,15 +53,7 @@ public class HomeController {
 		
 		return "index"; // Nom du fichier .jsp dans /WEB-INF/views/
 	}
-	
-	public List<Etudiant> getListe(){
-		List<Etudiant> ret = new ArrayList<Etudiant>();
-	/*	ret.add(new Etudiant(Long.parseLong("1"), "etudiant", Long.parseLong("1"), "ETU000111", "Angelo", "Lock", "2017-02-13"));
-		ret.add(new Etudiant(Long.parseLong("2"), "etudiant", Long.parseLong("2"), "ETU000112", "Angelo2", "Lock2", "2000-02-13"));
-		ret.add(new Etudiant(Long.parseLong("3"), "etudiant", Long.parseLong("3"), "ETU000113", "Angelo3", "Lock3", "1999-02-13"));
-		*/
-		return ret;
-	}
+	 
 	
 	@RequestMapping(value = "/{model}-details/{id}", method = RequestMethod.GET)
 	public String testParameter(

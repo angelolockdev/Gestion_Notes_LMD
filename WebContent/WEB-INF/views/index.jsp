@@ -13,10 +13,10 @@
 	
 	<ul>
 		<c:forEach var="entry" items="${listeEtudiant}">
-			<li>N° Matricule : 	<c:out value="${entry.value.numeromatricule}" /></li>
-			<li>Nom : 			<c:out value="${entry.value.nom}"/></li>
-			<li>Prénom : 		<c:out value="${entry.value.prenom}"/></li>
-			<li>Date de naissance : <c:out value="${entry.value.datenaissance}"/></li> 
+		<h2>N° Matricule : 	<c:out value="${entry.numeromatricule}" /></h2>
+			 <li>Nom : 			<c:out value="${entry.nom}"/></li>
+			<li>Prénom : 		<c:out value="${entry.prenom}"/></li>
+			<li>Date de naissance : <c:out value="${entry.datenaissance}"/></li> 
 		</c:forEach>
 	</ul>
 </body>

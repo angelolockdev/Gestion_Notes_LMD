@@ -2,11 +2,18 @@ package models;
  
 public class Matiere extends BaseModel{
 	 
+	
 	private Long id;
 	private Long idniveau;
+	private Integer optionM;
 	private String designation;
 	private String abreviation;
 	private Integer coefficient;
+	
+	public Matiere() {
+		super();
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -37,14 +44,23 @@ public class Matiere extends BaseModel{
 	public void setCoefficient(Integer coefficient) {
 		this.coefficient = coefficient;
 	}
-	public Matiere(Long id, String table, Long idniveau, String designation, String abreviation, Integer coefficient) {
+	public Matiere(Long id, String table, Long idniveau, Integer optionM, String designation, String abreviation, Integer coefficient) {
 		super(id, table);
 		this.idniveau = idniveau;
+		this.optionM = optionM;
 		this.designation = designation;
 		this.abreviation = abreviation;
 		this.coefficient = coefficient;
 	}
 	
+	public Integer getOptionM() {
+		return optionM;
+	}
+
+	public void setOptionM(Integer optionM) {
+		this.optionM = optionM;
+	}
+
 	public Matiere(Long id, String table) {
 		super(id, table);
 	} 

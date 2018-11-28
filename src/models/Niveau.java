@@ -9,6 +9,9 @@ public class Niveau extends BaseModel{
 	private String semestre;
 	 
 	
+	public Niveau() {
+		 
+	}
 	public Niveau(Long id, String table) {
 		super(id, table);
 	}

@@ -9,6 +9,9 @@ public class ResultatExamen extends BaseModel{
 	private String mention;
 	
 	
+	public ResultatExamen() {
+		super();
+	}
 	public Long getId() {
 		return id;
 	}
