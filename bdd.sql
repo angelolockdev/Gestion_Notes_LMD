@@ -6,7 +6,8 @@ create table etudiant(
 	numeromatricule varchar(50),
 	nom varchar(50),
 	prenom varchar(50),
-	datenaissance date
+	lieunaissance varchar(50),
+	datenaissance date,
 )Engine=InnoDB;
 
 create table niveau(
@@ -50,16 +51,7 @@ create table resultatexamen(
 */	
 	
 
-/*FUNCTION*/			
-/*Résultat examen  ==> VUE de résultat*/
-			 
-create view resultatexamenview as Select 
-	ROW_NUMBER(),
-	CONCAT(e.nom, " ", e.prenom),
-	
-	from notes n
-	join etudiant e
-	on e.id = n.idetudiant;
+
  
 
 			 

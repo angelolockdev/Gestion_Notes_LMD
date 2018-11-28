@@ -1,7 +1,7 @@
-insert into etudiant (numeromatricule, nom, prenom, datenaissance) 
-	values	("ETU000200", "Angelo", "lock", "2000-06-12"),
-			("ETU000222", "Tef", "Jean", "1994-03-20"),
-			("ETU000232", "Rakoto", "lock", "1994-05-21");
+insert into etudiant (numeromatricule, nom, prenom, lieunaissance, datenaissance) 
+	values	("ETU000200", "Angelo", "lock", "Tulear", "2000-06-12"),
+			("ETU000222", "Tef", "Jean", "Fianarantsoa", "1994-03-20"),
+			("ETU000232", "Rakoto", "lock", "Mahajanga","1994-05-21");
 			
 
 insert into niveau (filiere, intitule, semestre) 

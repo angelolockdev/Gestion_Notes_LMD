@@ -22,27 +22,17 @@ import models.Etudiant;
 @Controller
 public class HomeController {
 	@RequestMapping(value = {"/", "/index"} )
-	public String index(
-			ModelMap map ) {
+	public String index( ModelMap map ) { 
 		Connection connection = null;
 		try {
 			connection = UtilDb.getConnection();
-			Map<String, Object> result = EtudiantsMetier.listeEtudiants(connection);
-			
-			System.out.println("Resultat = "+result.get("listeEtudiants"));
-			
-			/*for(Etudiant temp : result) {  
-				//result.put("etudiant", temp);
-				System.out.println(" Etudiant : "+temp.getNumeromatricule()+" , "+temp.getNom()+" , "+temp.getPrenom() +" , "+temp.getDatenaissance());
-			}*/ 
-			 
+			Map<String, Object> result = EtudiantsMetier.listeEtudiants(connection); 
 			List<Etudiant> liste = (List<Etudiant>) result.get("listeEtudiants");
 			System.out.println("Size Etudiants = "+liste.size());
 			for(Etudiant temp : liste) {   
 				System.out.println(" Etudiant : "+temp.getNumeromatricule()+" , "+temp.getNom()+" , "+temp.getPrenom() +" , "+temp.getDatenaissance());
 			} 
-			map.put("listeEtudiant", liste);
-		 
+			map.put("listeEtudiant", liste); 
 		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("status", "error");
