@@ -1,16 +1,33 @@
 package models;
  
 public class Matiere extends BaseModel{
-	 
-	
-	private Long id;
+	  
 	private Long idniveau;
 	private Integer optionM;
 	private String designation;
 	private String abreviation;
 	private Integer coefficient;
-	private Long equivalent;
+	private  Long equivalent;
 	
+	private  String intitule;
+	private  Integer semestre;
+	
+	public String getIntitule() {
+		return intitule;
+	}
+
+	public void setIntitule(String intitule) {
+		this.intitule = intitule;
+	}
+
+	public Integer getSemestre() {
+		return semestre;
+	}
+
+	public void setSemestre(Integer semestre) {
+		this.semestre = semestre;
+	}
+
 	public Long getEquivalent() {
 		return equivalent;
 	}
@@ -21,14 +38,7 @@ public class Matiere extends BaseModel{
 
 	public Matiere() {
 		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	} 
 	public Long getIdniveau() {
 		return idniveau;
 	}

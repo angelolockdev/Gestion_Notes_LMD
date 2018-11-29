@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import dao.BaseDao;
-import models.Etudiant;
-import models.Notes;
-import models.ResultatExamen;  
+import models.Etudiant; 
+import models.ResultatExamen;
+import utils.DateSimple;  
 
 public class EtudiantsMetier {
  
@@ -19,7 +19,21 @@ public class EtudiantsMetier {
 		 
 		List<Etudiant> ret = new ArrayList<Etudiant>() ; 
 		try { 
-			ret = BaseDao.select(connection, "etudiant", Etudiant.class, null, null, null, 0, 1); 
+			ret = BaseDao.select(connection, "etudiantinscritview", Etudiant.class, null, null, null, 0, 1); 
+			
+			result.put("listeEtudiants", ret);
+		} catch (SQLException e) {
+			throw e;
+		}
+		return result;
+	}
+	public static  Map<String, Object> getEtutiantById(Connection connection, long id) throws SQLException {
+		 Map<String, Object> result = new HashMap<>();
+		 
+		 Etudiant ret = new Etudiant() ; 
+		try { 
+			ret = BaseDao.findById(connection, "etudiantinscritview", Etudiant.class, id); 
+			
 			result.put("listeEtudiants", ret);
 		} catch (SQLException e) {
 			throw e;
@@ -41,15 +55,14 @@ public class EtudiantsMetier {
 		return ret;
 	}
 
-	public static void insertNotes(Connection connection, long idetudiant, long idmatiere, double note, String anneedeb, String anneefin, int mention) throws Exception {
-		Notes insert = new Notes();
+	public static void insertEtudiant(Connection connection, long iduniversite, String nom, String prenom, String lieunaissance, DateSimple datenaissance ) throws Exception {
+		Etudiant insert = new Etudiant();
 		
-		insert.setIdetudiant(idetudiant); 
-		insert.setIdmatiere(idmatiere); 
-		insert.setNote(note);
-		insert.setAnneedeb(anneedeb);
-		insert.setAnneefin(anneefin);
-		insert.setMention(mention);
+		insert.setIduniversite(iduniversite); 
+		insert.setNom(nom);  
+		insert.setPrenom(prenom); 
+		insert.setLieunaissance(lieunaissance); 
+		insert.setDatenaissance(datenaissance); 
 		try {
 		
 			BaseDao.insert(connection, insert);

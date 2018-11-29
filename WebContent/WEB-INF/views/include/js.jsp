@@ -3,7 +3,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="<c:url value="/assets/js/popper.min.js" />"> </script>
 <script src="<c:url value="/assets/js/bootstrap.min.js" />"></script>
-<script src="<c:url value="/assets/js/jquery-slim.min.js" />"></script>
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {

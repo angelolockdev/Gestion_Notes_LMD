@@ -12,12 +12,25 @@ import models.Matiere;
 
 public class MatiereMetier {
  
+	public static  List<Matiere> getOption(Connection connection, int option) throws SQLException {
+		Map<String, Object> result = new HashMap<>();
+		 
+		List<Matiere> ret = new ArrayList<Matiere>() ; 
+		try { 
+			ret = BaseDao.select(connection, "matiere", Matiere.class, "optionM = ?", null, null, 0, 1, option); 
+			result.put("listeMatieres", ret);
+		} catch (SQLException e) {
+			throw e;
+		}
+		return ret;
+	}
+	
 	public static  Map<String, Object> listeMatiere(Connection connection) throws SQLException {
 		 Map<String, Object> result = new HashMap<>();
 		 
 		List<Matiere> ret = new ArrayList<Matiere>() ; 
 		try { 
-			ret = BaseDao.select(connection, "matiere", Matiere.class, null, null, null, 0, 1); 
+			ret = BaseDao.select(connection, "matiereniveauview", Matiere.class, null, null, null, 0, 1); 
 			result.put("listeMatieres", ret);
 		} catch (SQLException e) {
 			throw e;

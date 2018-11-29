@@ -25,27 +25,27 @@
         <div class=""> 
 	      	 <h3>Liste des étudiants</h3>
 		     <div class="row">  
-		        <div class="col-md-6">
+		        <div class="col-md-8">
 				  <table class="table table-bordered">
 				     <thead>
 					    <tr>
-					      <th scope="col">#</th>  
+					      <th scope="col">N° d'inscription</th>  
 					      <th scope="col">Nom </th>
 				      	  <th scope="col">Prénom(s) </th>	
-					      <th scope="col">Né(e) le</th>
-					      <th scope="col">N° </th>
+					      <th scope="col">Né(e) le</th> 
 					      <th scope="col">Inscrit(e) en </th>
 					    </tr>
 					  </thead>
 					  <tbody>
+					    <c:forEach var="entry" items="${listeEtudiant}">
 					    <tr>
-					      <th scope="row">1</th>
-					      <td>Mark</td>
-					      <td>Otto</td>
-					      <td>@mdo</td>
-					      <td>Mark</td>
-					      <td>Otto</td> 
+					      <th scope="row"><a href="<c:url value="etudiant-${entry.numeromatricule}/${entry.id}" />"><c:out value="${entry.numeromatricule}"/></a></th>
+					      <td><a href="<c:url value="etudiant-${entry.numeromatricule}/${entry.id}" />"><c:out value="${entry.nom}"/></a></td>
+					      <td><a href="<c:url value="etudiant-${entry.numeromatricule}/${entry.id}" />"><c:out value="${entry.prenom}"/></a></td>
+					      <td><a href="<c:url value="etudiant-${entry.numeromatricule}/${entry.id}" />"><c:out value="${entry.datenaissance}"/> &agrave; <c:out value="${entry.lieunaissance}"/></a></td> 
+					      <td><c:out value="${entry.filiere}"/></td> 
 					    </tr> 
+					    </c:forEach>
 					  </tbody>
 				  </table>
 				</div>

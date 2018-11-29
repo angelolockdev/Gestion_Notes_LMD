@@ -1,18 +1,21 @@
 drop database lmddb;
- 
+
+create table universite(
+	id bigint AUTO_INCREMENT PRIMARY KEY,
+	filiere varchar(100)
+)Engine=InnoDB;
 
 create table etudiant(
 	id bigint AUTO_INCREMENT PRIMARY KEY,
-	numeromatricule varchar(50),
+	iduniversite bigint,
 	nom varchar(50),
 	prenom varchar(50),
 	lieunaissance varchar(50),
 	datenaissance date,
-)Engine=InnoDB;
+	foreign key (iduniversite) references universite(id))Engine=InnoDB;
 
 create table niveau(
 	id bigint AUTO_INCREMENT PRIMARY KEY,
-	filiere varchar(50),
 	intitule varchar(50),
 	semestre integer
 )Engine=InnoDB;

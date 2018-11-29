@@ -1,7 +1,11 @@
 package controller;
 
 import java.sql.Connection;
-import java.sql.SQLException; 
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,11 +17,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.UtilDb;
-import metiers.EtudiantsMetier; 
+import metiers.EtudiantsMetier;
+import metiers.MatiereMetier;
 import models.Categorie;
-import models.Etudiant; 
+import models.Etudiant;
+import models.Matiere;
+import utils.MentionUtils; 
 
 @Controller
 public class HomeController {
@@ -27,12 +35,14 @@ public class HomeController {
 		try {
 			connection = UtilDb.getConnection();
 			Map<String, Object> result = EtudiantsMetier.listeEtudiants(connection); 
+			@SuppressWarnings("unchecked")
 			List<Etudiant> liste = (List<Etudiant>) result.get("listeEtudiants");
 			System.out.println("Size Etudiants = "+liste.size());
 			for(Etudiant temp : liste) {   
-				System.out.println(" Etudiant : "+temp.getNumeromatricule()+" , "+temp.getNom()+" , "+temp.getPrenom() +" , "+temp.getDatenaissance());
+				System.out.println(" Etudiant : "+temp.getNumeromatricule()+" , "+temp.getNom()+" , "+temp.getPrenom() +" , "+temp.getLieunaissance()+" , "+temp.getDatenaissance()+" , "+temp.getFiliere());
 			} 
 			map.put("listeEtudiant", liste); 
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("status", "error");
@@ -42,9 +52,36 @@ public class HomeController {
 		}
 		
 		return "index"; // Nom du fichier .jsp dans /WEB-INF/views/
+	} 
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/etudiant-{numeromatricule}/{id}", method = RequestMethod.GET)
+	public String getEtudiant( ModelMap map ,
+			@PathVariable("numeromatricule") String numeromatricule,
+			@PathVariable("id") long id) { 
+		Connection connection = null;
+		try {
+			connection = UtilDb.getConnection();
+			Map<String, Object> result = EtudiantsMetier.getEtutiantById(connection, id);
+			Map<String, Object> matieres = MatiereMetier.listeMatiere(connection); 
+			Etudiant etudiant = (Etudiant) result.get("etudiant");
+			List<Matiere> listeMatiere = (List<Matiere>) matieres.get("listeMatieres");
+			for(Matiere temp : listeMatiere) {
+				System.out.println("GEGE = "+temp.getDesignation()+" "+temp.getAbreviation());
+			}
+			map.put("options", MentionUtils.getOptions());
+			map.put("etudiant", etudiant); 
+			map.put("listeMatieres", listeMatiere); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("status", "error");
+			map.put("message", e.getMessage());
+		} finally {
+			closeConnection(connection);
+		}
+		
+		return "detail-etudiant"; // Nom du fichier .jsp dans /WEB-INF/views/
 	}
 	 
-	
 	@RequestMapping(value = "/{model}-details/{id}", method = RequestMethod.GET)
 	public String testParameter(
 			ModelMap map, // Pour passer des parametres vers la vue => injecter automatiquement par Spring
@@ -68,7 +105,26 @@ public class HomeController {
 		map.put("categorie", c);
 		return "test";
 	}
-	
+	@RequestMapping(value = "/matiere/{optionM}", method = RequestMethod.GET)
+	public @ResponseBody List<Matiere> matieres(ModelMap map ,
+			@PathVariable("optionM") Integer optionM) {
+		Connection connection = null;
+		List<Matiere> result = new ArrayList<Matiere>();
+		try {
+			connection = UtilDb.getConnection();
+			result = MatiereMetier.getOption(connection, optionM);
+			for(Matiere m : result) { 
+				System.out.println("m = "+ m.getId()+", "+m.getDesignation()+", "+m.getAbreviation()+", "+m.getCoefficient()+", "+m.getEquivalent());
+			}
+		}  catch (Exception e) {
+			e.printStackTrace();
+			map.put("status", "error");
+			map.put("message", e.getMessage());
+		} finally {
+			closeConnection(connection);
+		}
+		return result;
+	}
 	
 	
 	@RequestMapping(value = "/redirection-test")

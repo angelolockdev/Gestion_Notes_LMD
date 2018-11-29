@@ -1,5 +1,8 @@
 package utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MentionUtils {
 	
 	public static String getMentionBy(int mention) {
@@ -16,6 +19,14 @@ public class MentionUtils {
 			default:
 				ret = "Honorable";break;
 		}
+		return ret;
+	}
+	public static Map<Integer, String> getOptions() {
+		Map<Integer, String> ret = new HashMap<Integer, String>();
+		ret.put(10, "Développement");
+		ret.put(20, "Web Avancé");
+		ret.put(30, "Réseaux informatique"); 
+
 		return ret;
 	}
 }

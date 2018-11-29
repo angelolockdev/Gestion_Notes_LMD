@@ -1,20 +1,23 @@
-insert into etudiant (numeromatricule, nom, prenom, lieunaissance, datenaissance) 
-	values	("ETU000200", "Angelo", "lock", "Tulear", "2000-06-12"),
-			("ETU000222", "Tef", "Jean", "Fianarantsoa", "1994-03-20"),
-			("ETU000232", "Rakoto", "lock", "Mahajanga","1994-05-21");
+insert into universite (filiere) 
+	values	("Informatique");
+
+insert into etudiant (iduniversite, nom, prenom, lieunaissance, datenaissance) 
+	values	(1, "Angelo", "lock", "Tulear", "2000-06-12"),
+			(1, "Tef", "Jean", "Fianarantsoa", "1994-03-20"),
+			(1, "Rakoto", "lock", "Mahajanga","1994-05-21");
 			
 
-insert into niveau (filiere, intitule, semestre) 
-	values	("Informatique", "Licence", 1),
-			("Informatique", "Licence", 2),
-			("Informatique", "Licence", 3),
-			("Informatique", "Licence", 4),
-			("Informatique", "Licence", 5),
-			("Informatique", "Licence", 6),
-			("Informatique", "Master", 7),
-			("Informatique", "Master", 8),
-			("Informatique", "Master", 9),
-			("Informatique", "Master", 10);
+insert into niveau (intitule, semestre) 
+	values	("Licence", 1),
+			("Licence", 2),
+			("Licence", 3),
+			("Licence", 4),
+			("Licence", 5),
+			("Licence", 6),
+			("Master", 7),
+			("Master", 8),
+			("Master", 9),
+			("Master", 10);
 
 /*Matiere communs de: optionM =  (idniveau*10) */
 insert into matiere (idniveau, optionM ,designation, abreviation, coefficient, equivalent) 
