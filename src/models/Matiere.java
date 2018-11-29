@@ -7,7 +7,7 @@ public class Matiere extends BaseModel{
 	private String designation;
 	private String abreviation;
 	private Integer coefficient;
-	private  Long equivalent;
+	private Long equivalent;
 	
 	private  String intitule;
 	private  Integer semestre;

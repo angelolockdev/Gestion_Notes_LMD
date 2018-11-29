@@ -4,6 +4,7 @@ public class Notes extends BaseModel{
 	  
 	private Long idetudiant;
 	private Long idmatiere;
+	private Long idexamen;
 	private Double note;
 	private Double noterepechage;
 	private String anneedeb;

@@ -10,26 +10,20 @@ public class Etudiant extends BaseModel{
 	  
 	private Long iduniversite; 
 	private String nom;
-	private String prenom;
+	private String prenom; 
 	private String lieunaissance;
-	private String filiere;
+	private DateSimple datenaissance; 
 	
-	public String getFiliere() {
-		return filiere;
-	}
-	public void setFiliere(String filiere) {
-		this.filiere = filiere;
-	}
+	private String numeromatricule;
+ 
+	
 	public String getLieunaissance() {
 		return lieunaissance;
 	}
 	public void setLieunaissance(String lieunaissance) {
 		this.lieunaissance = lieunaissance;
 	}
-	private DateSimple datenaissance;
-	
-	private String numeromatricule;
- 
+
 	public Long getIduniversite() {
 		return iduniversite;
 	}

@@ -3,7 +3,6 @@ package models;
 
 public class Niveau extends BaseModel{
 	   
-	private String filiere;
 	private String intitule;
 	private String semestre;
 	 
@@ -14,19 +13,12 @@ public class Niveau extends BaseModel{
 	public Niveau(Long id, String table) {
 		super(id, table);
 	}
-	public Niveau(Long id, String table, String filiere, String intitule, String semestre) {
-		super(id, table);
-		this.filiere = filiere;
+	public Niveau(Long id, String table , String intitule, String semestre) {
+		super(id, table); 
 		this.intitule = intitule;
 		this.semestre = semestre;
 	}
-	
-	public String getFiliere() {
-		return filiere;
-	}
-	public void setFiliere(String filiere) {
-		this.filiere = filiere;
-	}
+	 
 	public String getIntitule() {
 		return intitule;
 	}
