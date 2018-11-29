@@ -55,14 +55,18 @@ insert into matiere (idniveau, optionM ,designation, abreviation, coefficient, e
 			(5, 30, "Conception en modèle relationnel", "INF308", 6, null);
 
 
+/*Examen*/
+insert into examen (idniveau, dateexamen) 
+	values (5, "2018-02-15");
+
 /*Notes*/
-insert into notes (idetudiant, idmatiere , note, noterepechage, anneedeb, anneefin, mention) 
-	values	(1, 15, 10.50, 0, "2017", "2018", 10),    
-			(1, 16, 8.50, 0, "2017", "2018", null),
-			(1, 17, 12, 0, "2017", "2018", 10),
-			(1, 18, 11.50, 0, "2017", "2018", 10),
-			(1, 19, 9.75, 0, "2017", "2018", null),
-			(1, 20, 6.50, 0, "2017", "2018", null);
+insert into notes (idexamen, idetudiant, idmatiere , note, noterepechage, anneedeb, mention) 
+	values	(1, 1, 15, 10.50, 0, "2017", 10),    
+			(1, 1, 16, 8.50, 0, "2017", null),
+			(1, 1, 17, 12, 0, "2017", 10),
+			(1, 1, 18, 11.50, 0, "2017", 10),
+			(1, 1, 19, 9.75, 0, "2017", null),
+			(1, 1, 20, 6.50, 0, "2017", null);
 			
 			
 			

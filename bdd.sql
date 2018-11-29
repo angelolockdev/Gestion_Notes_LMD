@@ -33,9 +33,9 @@ create table matiere(
 
 create table examen(
 	id bigint AUTO_INCREMENT PRIMARY KEY,
-	idmatiere bigint,
+	idniveau bigint,
 	dateexamen date, 
-	foreign key (idmatiere) references matiere(id))Engine=InnoDB;
+	foreign key (idniveau) references niveau(id))Engine=InnoDB;
 
 	
 create table notes(
