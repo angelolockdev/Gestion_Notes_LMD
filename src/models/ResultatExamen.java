@@ -1,8 +1,7 @@
 package models;
  
 public class ResultatExamen extends BaseModel{
-	 
-	private Long id;
+	  
 	private Long idnotes;
 	private Integer statusadmis;
 	private Double moyenne;
@@ -12,12 +11,7 @@ public class ResultatExamen extends BaseModel{
 	public ResultatExamen() {
 		super();
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 	public Long getIdnotes() {
 		return idnotes;
 	}

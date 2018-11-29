@@ -2,8 +2,7 @@ package models;
 
 
 public class Niveau extends BaseModel{
-	  
-	private Long id;
+	   
 	private String filiere;
 	private String intitule;
 	private String semestre;
@@ -21,12 +20,7 @@ public class Niveau extends BaseModel{
 		this.intitule = intitule;
 		this.semestre = semestre;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 	public String getFiliere() {
 		return filiere;
 	}

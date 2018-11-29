@@ -40,17 +40,22 @@
 			                   Svp, veuillez informer le champ Option. 
 			                </div> 
 		              	</div>
-		              	<div id="changeable" class="col-md-6 mb-3">
+		              	
+		              	<div class="col-md-6 mb-3">
 			               	<label for="matiere">Matieres</label>
-			                <select class="custom-select d-block w-100" id="matiere" name="matiere" required>
-			                  <option value=""></option>
-			                  <c:forEach var="entry" items="${listeMatieres}">
+		                	 <select class="custom-select d-block w-100" id="matiere" name="matiere" required>
+		                  		<option value=""></option>
+				                <div id="changeable">
+				                <!--  <c:forEach var="entry" items="${listeMatieres}">
 			                  	<option value="<c:out value="${entry.id }" />"><c:out value="${entry.designation}" /> | UE: <c:out value="${entry.abreviation}" /> | Coeff: <c:out value="${entry.coefficient}" /></option>
-			                  </c:forEach>
-			                </select>
+				                  </c:forEach>-->
+		                		</div>
+		                	</select> 
+			                
 			                <div class="invalid-feedback">
 			                   Svp, veuillez informer le champ matiere. 
 			                </div> 
+			              	
 		              	</div>
 		               
 		            </div>
@@ -82,14 +87,12 @@
   <%@include file="include/js.jsp"%> 
   <script>
   	function getHtml(msg){
-		var html = "<div class=\"col-md-6 mb-3\">";
-		html += "<label for=\"matiere\">Matieres</label>";
-		html += "<select class=\"custom-select d-block w-100\" id=\"matiere\" name=\"matiere\" required>";
-		html += "<option value=\"\"></option>";
+		var html = "";
+		//"<select class=\"custom-select d-block w-100\" id=\"matiere\" name=\"matiere\" required>";
+		html += "";
 		
-		for(var entry in msg){
-			html += "<option value=\""+entry.optionM+"\">"+entry.designation+" | UE:"+entry.abreviation+" | Coeff:"+entry.coefficient+"</option></select>";
-			html += "<div class=\"invalid-feedback\"> Svp, veuillez informer le champ matiere. </div>  </div>";
+		for(var i = 0 ; i < msg.length ; i++ ){
+			html += "<option value=\""+msg[i].optionM+"\">"+msg[i].designation+" | UE: "+msg[i].abreviation+" | Coeff: "+msg[i].coefficient+"</option>"; //</select>
 	    } 
 		return html;
 	}
@@ -101,10 +104,10 @@
 			  url: "http://localhost:8080/EmptyProject/matiere/"+option.val(),
 			  data: { }
 			}).done(function( msg ) {
-				
+				console.log(getHtml(msg));
 				//$('#outputlisteDiplome').html(getHtml(msg,"setIdDiplome"));
 				$('#changeable').html(getHtml(msg));
-				alert( "Data Saved: " + msg); 
+				//alert( "Data Saved: " + msg); 
 			   
   		}); 
   		 /*$.ajax({

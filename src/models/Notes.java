@@ -1,8 +1,7 @@
 package models;
  
 public class Notes extends BaseModel{
-	 
-	private Long id;
+	  
 	private Long idetudiant;
 	private Long idmatiere;
 	private Double note;
@@ -26,12 +25,7 @@ public class Notes extends BaseModel{
 	}
 	public Notes( ) { 
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 	public Long getIdetudiant() {
 		return idetudiant;
 	}
@@ -63,10 +57,9 @@ public class Notes extends BaseModel{
 		this.anneefin = anneefin;
 	}
 	 
-	public Notes(Long id, Long idetudiant, Long idmatiere, Double note, Double noterepechage, String anneedeb,
+	public Notes( Long idetudiant, Long idmatiere, Double note, Double noterepechage, String anneedeb,
 			String anneefin, Integer mention) {
 		super();
-		this.id = id;
 		this.idetudiant = idetudiant;
 		this.idmatiere = idmatiere;
 		this.note = note;
