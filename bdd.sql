@@ -2,7 +2,8 @@ drop database lmddb;
 
 create table universite(
 	id bigint AUTO_INCREMENT PRIMARY KEY,
-	filiere varchar(100)
+	filiere varchar(100),
+	nom varchar(100)
 )Engine=InnoDB;
 
 create table etudiant(
@@ -17,8 +18,7 @@ create table etudiant(
 create table niveau(
 	id bigint AUTO_INCREMENT PRIMARY KEY,
 	intitule varchar(50),
-	semestre integer
-)Engine=InnoDB;
+	semestre integer)Engine=InnoDB;
 
 create table matiere(
 	id bigint AUTO_INCREMENT PRIMARY KEY,
@@ -30,17 +30,25 @@ create table matiere(
 	equivalent bigint null,
 	foreign key (equivalent) references matiere(id) ,
 	foreign key (idniveau) references niveau(id))Engine=InnoDB;
+
+create table examen(
+	id bigint AUTO_INCREMENT PRIMARY KEY,
+	idmatiere bigint,
+	dateexamen date, 
+	foreign key (idmatiere) references matiere(id))Engine=InnoDB;
+
 	
 create table notes(
 	id bigint AUTO_INCREMENT PRIMARY KEY,
 	idetudiant bigint,
 	idmatiere bigint,
+	idexamen bigint,
 	note double precision,
 	noterepechage double precision,
-	anneedeb varchar(4),
-	anneefin varchar(4),
+	anneedeb varchar(4), 
 	mention integer null,
 	foreign key (idetudiant) references etudiant(id),
+	foreign key (idexamen) references examen(id),
 	foreign key (idmatiere) references matiere(id))Engine=InnoDB;
 	
 /*	
