@@ -4,8 +4,8 @@ import utils.DateSimple;
 
 public class ExamenDetail extends BaseModel{ 
 	 
-	private long idexamen;
-	private long idetudiant;
+	private Long idexamen;
+	private Long idetudiant;
 	 
 	private transient String nom;
 	private transient String prenom; 
@@ -14,7 +14,7 @@ public class ExamenDetail extends BaseModel{
 	
 	private transient String numeromatricule;
 	
-	public long getIdexamen() {
+	public Long getIdexamen() {
 		return idexamen;
 	}
  
@@ -58,15 +58,15 @@ public class ExamenDetail extends BaseModel{
 		this.numeromatricule = numeromatricule;
 	}
 
-	public void setIdexamen(long idexamen) {
+	public void setIdexamen(Long idexamen) {
 		this.idexamen = idexamen;
 	}
  
-	public long getIdetudiant() {
+	public Long getIdetudiant() {
 		return idetudiant;
 	}
 	
-	public void setIdetudiant(long idetudiant) {
+	public void setIdetudiant(Long idetudiant) {
 		this.idetudiant = idetudiant;
 	}
  
@@ -76,6 +76,12 @@ public class ExamenDetail extends BaseModel{
 
 	public ExamenDetail(Long id, String table, long idexamen, long idetudiant) {
 		super(id, table);
+		this.idexamen = idexamen;
+		this.idetudiant = idetudiant;
+	}
+
+	public ExamenDetail(Long idexamen, Long idetudiant) {
+		super();
 		this.idexamen = idexamen;
 		this.idetudiant = idetudiant;
 	}

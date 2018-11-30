@@ -1,23 +1,15 @@
 package models;
  
 public class Notes extends BaseModel{
-	  
-	private Long idetudiant;
+
 	private Long idmatiere;
-	private Long idexamen;
+	private Long idexamendetail;
 	private Double note;
 	private Double noterepechage;
-	private String anneedeb;
-	private String anneefin;
 	private Integer mention;
 	
 	
-	public Long getIdexamen() {
-		return idexamen;
-	}
-	public void setIdexamen(Long idexamen) {
-		this.idexamen = idexamen;
-	}
+	 
 	public Double getNoterepechage() {
 		return noterepechage;
 	}
@@ -33,11 +25,12 @@ public class Notes extends BaseModel{
 	public Notes( ) { 
 	}
 	
-	public Long getIdetudiant() {
-		return idetudiant;
+	 
+	public Long getIdexamendetail() {
+		return idexamendetail;
 	}
-	public void setIdetudiant(Long idetudiant) {
-		this.idetudiant = idetudiant;
+	public void setIdexamendetail(Long idexamendetail) {
+		this.idexamendetail = idexamendetail;
 	}
 	public Long getIdmatiere() {
 		return idmatiere;
@@ -51,32 +44,28 @@ public class Notes extends BaseModel{
 	public void setNote(Double note) {
 		this.note = note;
 	}
-	public String getAnneedeb() {
-		return anneedeb;
-	}
-	public void setAnneedeb(String anneedeb) {
-		this.anneedeb = anneedeb;
-	}
-	public String getAnneefin() {
-		return anneefin;
-	}
-	public void setAnneefin(String anneefin) {
-		this.anneefin = anneefin;
-	}
+
 	 
-	public Notes( Long idetudiant, Long idmatiere, Double note, Double noterepechage, String anneedeb,
-			String anneefin, Integer mention) {
-		super();
-		this.idetudiant = idetudiant;
+	public Notes( Long idetudiant, Long idmatiere, Double note, Double noterepechage, Integer mention) {
+		super(); 
 		this.idmatiere = idmatiere;
 		this.note = note;
 		this.noterepechage = noterepechage;
-		this.anneedeb = anneedeb;
-		this.anneefin = anneefin;
+		
 		this.mention = mention;
 	}
 	public Notes(Long id, String table) {
 		super(id, table);
+	}
+	
+	public String print() {
+		String ret = ""; 
+		ret += " idExamen: "+this.getIdexamendetail() ;
+		ret += " idMatiere: "+this.getIdmatiere() ;
+		ret += " notes: "+this.getNote() ;
+		ret += " getNoterepechage: "+this.getNoterepechage() ;
+		ret += " getMention: "+this.getMention() ;
+		return ret;
 	}
 	 
 	

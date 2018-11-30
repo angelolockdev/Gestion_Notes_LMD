@@ -57,21 +57,19 @@ insert into matiere (idniveau, optionM ,designation, abreviation, coefficient, e
 
 /*Examen*/
 insert into examen (idniveau, dateexamen) 
-	values (5, "2018-02-15");
-	values (3, "2018-03-02");
+	values (5, "2018-02-15"),(3, "2018-03-02");
 	
 	insert into examendetail (idexamen, idetudiant) 
-	values (1, 1);
-	values (1, 2);
+	values (1, 1), (1, 2);
 
 /*Notes*/
-insert into notes (idexamendetail, idmatiere , note, noterepechage, anneedeb, mention) 
-	values	(1, 15, 10.50, 0, "2017", 10),    
-			(1, 16, 8.50, 0, "2017", null),
-			(1, 17, 12, 0, "2017", 10),
-			(1, 18, 11.50, 0, "2017", 10),
-			(1, 19, 9.75, 0, "2017", null),
-			(1, 20, 6.50, 0, "2017", null);
+insert into notes (idexamendetail, idmatiere , note, noterepechage, mention) 
+	values	(1, 15, 10.50, 0, 10),    
+			(1, 16, 8.50, 0, null),
+			(1, 17, 12, 0, 10),
+			(1, 18, 11.50, 0, 10),
+			(1, 19, 9.75, 0, null),
+			(1, 20, 6.50, 0, null);
 			
 			
 			

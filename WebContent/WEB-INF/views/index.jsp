@@ -40,10 +40,10 @@
 					  <tbody>
 					    <c:forEach var="entry" items="${listeEtudiant}">
 					    <tr>
-					      <th scope="row"><a href="<c:url value="etudiant-${entry.numeromatricule}/${entry.id}" />"><c:out value="${entry.numeromatricule}"/></a></th>
-					      <td><a href="<c:url value="etudiant-${entry.numeromatricule}/${entry.id}" />"><c:out value="${entry.nom}"/></a></td>
-					      <td><a href="<c:url value="etudiant-${entry.numeromatricule}/${entry.id}" />"><c:out value="${entry.prenom}"/></a></td>
-					      <td><a href="<c:url value="etudiant-${entry.numeromatricule}/${entry.id}" />"><c:out value="${entry.datenaissance}"/> &agrave; <c:out value="${entry.lieunaissance}"/></a></td> 
+					      <th scope="row"><a href="<c:url value="resultatNotes/${entry.id}" />"><c:out value="${entry.numeromatricule}"/></a></th>
+					      <td><a href="<c:url value="resultatNotes/${entry.id}" />"><c:out value="${entry.nom}"/></a></td>
+					      <td><a href="<c:url value="resultatNotes/${entry.id}" />"><c:out value="${entry.prenom}"/></a></td>
+					      <td><a href="<c:url value="resultatNotes/${entry.id}" />"><c:out value="${entry.datenaissance}"/> &agrave; <c:out value="${entry.lieunaissance}"/></a></td> 
 					      <td><c:out value="${entry.filiere}"/></td> 
 					    </tr> 
 					    </c:forEach>

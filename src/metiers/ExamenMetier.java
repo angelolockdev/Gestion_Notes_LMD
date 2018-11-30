@@ -17,32 +17,34 @@ public class ExamenMetier {
 		 
 		List<Examen> ret = new ArrayList<Examen>() ; 
 		try { 
-			ret = BaseDao.select(connection, "examenview", Examen.class, "idniveau=?", "idniveau, dateexamen, semestre", "DESC", limit, page ,idniveau ); 
+			ret = BaseDao.select(connection, "examenview2", Examen.class, "idniveau=?", "idniveau, dateexamen, semestre", "DESC", limit, page ,idniveau ); 
 			result.put("listeExamens", ret);
 		} catch (SQLException e) {
 			throw e;
 		}
-		return ret;
+		return ret; 
 	}
 	public static  List<Examen> listeExamen2(Connection connection,int limit, int page) throws SQLException {
 		 Map<String, Object> result = new HashMap<>();
 		 
 		List<Examen> ret = new ArrayList<Examen>() ; 
 		try { 
-			ret = BaseDao.select(connection, "examenview", Examen.class, null, null, "DESC", limit, page ); 
+			ret = BaseDao.select(connection, "examenview1", Examen.class, null, null, "DESC", limit, page );
+			
 			result.put("listeExamens", ret);
 		} catch (SQLException e) {
 			throw e;
 		}
 		return ret;
 	}
+	
 	public static Examen listeExamenBy(Connection connection, Long id) throws SQLException {
 		//Map<String, Object> result = new HashMap<>();
 		 
 		Examen  ret = new Examen () ; 
 		try {
 			System.out.println("Test long = "+id);
-			ret = BaseDao.findById(connection, "examen", Examen.class, id) ;
+			ret = BaseDao.findById(connection, "examenview1", Examen.class, id) ;
 		 
 			//result.put("listeNotes", ret);
 		} catch (SQLException e) {

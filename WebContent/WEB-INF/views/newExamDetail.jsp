@@ -21,7 +21,7 @@
       <%@include file="include/header.jsp"%> 
       <!-- HEADER -->
       <main role="main">
-        <div class=""> 
+        <div class="">  
         	<form action="<c:url value="/saveEtudiantExamDetail" />" method="POST" class="needs-validation" novalidate>
 	            <div class="row">
 	            <c:if test="${error == 1}">
@@ -49,7 +49,7 @@
 	            <hr class="mb-4">
 	            
           	</form> 
-	      	 <h3>Liste des étudiants de l'examen du <c:out value="Semestre ${semestre}" /> : <c:out value="${examen.dateexamen}"/> </h3>
+	      	 <h3>Liste des étudiants de l'examen du <c:out value="Semestre ${examen.semestre}" /> : <c:out value="${examen.dateexamen}"/> </h3>
 		     <div class="row">  
 		        <div class="col-md-8">
 				  <table class="table table-bordered">
@@ -63,9 +63,9 @@
 					  <tbody>
 					    <c:forEach var="entry" items="${examtemp}">
 					    <tr>
-					      <th scope="row"><a href="<c:url value="exam-S${entry.examen.semestre}/${entry.examen.id}" />"><c:out value=" ${entry.examendetail.id}"/></a></th>
-					      <td><a href="<c:url value="exam-S${entry.examen.semestre}/${entry.examen.id}" />"><c:out value="Semestre ${entry.examen.semestre}"/></a></td>
-					      <td><a href="<c:url value="exam-S${entry.examen.semestre}/${entry.examen.id}" />"><c:out value="${entry.examendetail.nom} ${entry.examendetail.prenom }"/></a></td>
+					      <th scope="row"><a href="<c:url value="/exam-S${entry.examen.semestre}/${entry.examendetail.idetudiant}" />"><c:out value=" ${entry.examendetail.id}"/></a></th>
+					      <td><a href="<c:url value="/exam-S${entry.examen.semestre}/${entry.examendetail.idetudiant}" />"><c:out value="Semestre ${entry.examen.semestre}"/></a></td>
+					      <td><a href="<c:url value="/exam-S${entry.examen.semestre}/${entry.examendetail.idetudiant}" />"><c:out value="${entry.examendetail.nom} ${entry.examendetail.prenom }"/></a></td>
 					     
 					    </tr> 
 					    </c:forEach>
