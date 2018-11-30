@@ -4,8 +4,8 @@ import utils.DateSimple;
 
 public class ExamenDetail extends BaseModel{ 
 	 
-	private Long idexamen;
-	private Long idetudiant;
+	private Examen examen;
+	private Etudiant etudiant;
 	 
 	private transient String nom;
 	private transient String prenom; 
@@ -14,10 +14,7 @@ public class ExamenDetail extends BaseModel{
 	
 	private transient String numeromatricule;
 	
-	public Long getIdexamen() {
-		return idexamen;
-	}
- 
+	 
 	public String getNom() {
 		return nom;
 	}
@@ -58,36 +55,54 @@ public class ExamenDetail extends BaseModel{
 		this.numeromatricule = numeromatricule;
 	}
 
-	public void setIdexamen(Long idexamen) {
-		this.idexamen = idexamen;
-	}
- 
-	public Long getIdetudiant() {
-		return idetudiant;
-	}
-	
-	public void setIdetudiant(Long idetudiant) {
-		this.idetudiant = idetudiant;
-	}
+	 
  
 	public ExamenDetail(Long id, String table) {
 		super(id, table);
 	}
+ 
 
-	public ExamenDetail(Long id, String table, long idexamen, long idetudiant) {
-		super(id, table);
-		this.idexamen = idexamen;
-		this.idetudiant = idetudiant;
+	public ExamenDetail(Examen examen, Etudiant etudiant, String nom, String prenom, String lieunaissance,
+			DateSimple datenaissance, String numeromatricule) {
+		super();
+		this.examen = examen;
+		this.etudiant = etudiant;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.lieunaissance = lieunaissance;
+		this.datenaissance = datenaissance;
+		this.numeromatricule = numeromatricule;
 	}
 
-	public ExamenDetail(Long idexamen, Long idetudiant) {
-		super();
-		this.idexamen = idexamen;
-		this.idetudiant = idetudiant;
+	public ExamenDetail(Long id, String table, Examen examen, Etudiant etudiant, String nom, String prenom,
+			String lieunaissance, DateSimple datenaissance, String numeromatricule) {
+		super(id, table);
+		this.examen = examen;
+		this.etudiant = etudiant;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.lieunaissance = lieunaissance;
+		this.datenaissance = datenaissance;
+		this.numeromatricule = numeromatricule;
+	}
+
+	public Examen getExamen() {
+		return examen;
+	}
+
+	public void setExamen(Examen examen) {
+		this.examen = examen;
+	}
+
+	public Etudiant getEtudiant() {
+		return etudiant;
+	}
+
+	public void setEtudiant(Etudiant etudiant) {
+		this.etudiant = etudiant;
 	}
 
 	public ExamenDetail() {
-		super();
 	}  
 	 
 }
