@@ -16,7 +16,7 @@ public class ExamenDetailMetier {
 		 
 		List<ExamenDetail> ret = new ArrayList<ExamenDetail>() ; 
 		try { 
-			ret = BaseDao.select(connection, "examendetail", ExamenDetail.class, null, null, "DESC", limit, page); 
+			ret = BaseDao.select(connection, "examendetailetudiantview", ExamenDetail.class, null, null, "DESC", limit, page); 
 			result.put("listeExamenDetails", ret);
 		} catch (SQLException e) {
 			throw e;

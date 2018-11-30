@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico"> 
     <title>Notes-LMD</title> 
     <!-- Bootstrap core CSS -->
     <link href="<c:url value="/assets/css/bootstrap.min.css" />" rel="stylesheet"> 
@@ -35,7 +34,7 @@
 	                  	<c:forEach var="entry" items="${etudiants}">
 		                  	<option value="<c:out value="${entry.id}" />"><c:out value=" ${entry.numeromatricule} | ${entry.nom} ${entry.prenom} " /></option>
 	                  	</c:forEach> 
-                	</select> 
+                	</select>  
 	                <div class="invalid-feedback">
 	                  Veuillez remplir ce champ.
 	                </div>
@@ -58,15 +57,15 @@
 					    <tr>
 					      <th scope="col">#</th>  
 					      <th scope="col">Semestre </th>
-				      	  <th scope="col">Session </th>	 
+				      	  <th scope="col">nom et prénom</th>	 
 					    </tr>
 					  </thead>
 					  <tbody>
-					    <c:forEach var="entry" items="${listeExamen}">
+					    <c:forEach var="entry" items="${examtemp}">
 					    <tr>
-					      <th scope="row"><a href="<c:url value="exam-S${entry.semestre}/${entry.id}" />"><c:out value=" ${entry.id}"/></a></th>
-					      <td><a href="<c:url value="exam-S${entry.semestre}/${entry.id}" />"><c:out value="Semestre ${entry.semestre}"/></a></td>
-					      <td><a href="<c:url value="exam-S${entry.semestre}/${entry.id}" />"><c:out value="${entry.dateexamen}"/></a></td>
+					      <th scope="row"><a href="<c:url value="exam-S${entry.examen.semestre}/${entry.examen.id}" />"><c:out value=" ${entry.examendetail.id}"/></a></th>
+					      <td><a href="<c:url value="exam-S${entry.examen.semestre}/${entry.examen.id}" />"><c:out value="Semestre ${entry.examen.semestre}"/></a></td>
+					      <td><a href="<c:url value="exam-S${entry.examen.semestre}/${entry.examen.id}" />"><c:out value="${entry.examendetail.nom} ${entry.examendetail.prenom }"/></a></td>
 					     
 					    </tr> 
 					    </c:forEach>

@@ -28,6 +28,7 @@ import metiers.MatiereMetier;
 import metiers.NiveauMetier;
 import models.Categorie;
 import models.Etudiant;
+import models.ExamTemp;
 import models.Examen;
 import models.ExamenDetail;
 import models.Matiere;
@@ -141,7 +142,7 @@ public class HomeController {
 		List<Niveau> niveaux = new ArrayList<Niveau>();
 		try {
 			connection = UtilDb.getConnection();
-			result = ExamenMetier.listeExamen(connection, 15, 1);
+			result = ExamenMetier.listeExamen2(connection, 15, 1);
 			niveaux = NiveauMetier.listeNiveau(connection) ;
 			if(type.isPresent()) {
 				model.addAttribute("error", type.get());
@@ -186,46 +187,55 @@ public class HomeController {
 	
 	@RequestMapping(value = "/saveexamDetail-S{semestre}/{id}", method = RequestMethod.GET)
 	public String saveExam(Model model,
-		@PathVariable(value = "semestre") long semestre,
-		@PathVariable(value = "id") long id,
+		@PathVariable(value = "semestre") String semestre,
+		@PathVariable(value = "id") String id,
 		HttpServletRequest request) {
 		Connection connection = null;  
-		List<Etudiant> etudiants = null;
+		List<Examen> exam = null;
 		List<ExamenDetail> examDet = null;
+		List<Etudiant> etudiants = null;
+		List<ExamTemp> examtemp = new ArrayList<ExamTemp>();
 		Examen examen = null;
 		try {
 			connection = UtilDb.getConnection();
+			exam = ExamenMetier.listeExamen(connection, Long.valueOf(semestre), 15, 1);
 			etudiants = EtudiantsMetier.listeEtudiants(connection);
 			examDet = ExamenDetailMetier.listeExamenDetail(connection, 15, 1);
-			examen = ExamenMetier.listeExamenBy(connection, id);
+			examen = ExamenMetier.listeExamenBy(connection, Long.valueOf(id));
 			//ExamenMetier.insertExamen(connection, idniveau, dateexamen);   
-			
+			for(int i=0;i<exam.size();i++) {
+				examtemp.add(new ExamTemp(exam.get(i), examDet.get(i)));
+			}
+			model.addAttribute( "etudiants", etudiants);
 			model.addAttribute( "examen", examen);
 			model.addAttribute( "semestre", semestre);
-			model.addAttribute( "etudiants", etudiants);
-			model.addAttribute( "examDet", examDet);
+			model.addAttribute( "examtemp", examtemp);
+			
 		}  catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute( "status", "error");
+			e.printStackTrace();
 			model.addAttribute( "message", e.getMessage());
 		} finally {
 			closeConnection(connection);
-		} 
+		}
 		return "newExamDetail";
 	} 
 	@RequestMapping(value = "/saveEtudiantExamDetail", method = RequestMethod.POST)
 	public String saveEtudiantExamDetail(Model model,
-		@RequestParam(value = "idexamen") Optional<Long> idexamen,
-		@RequestParam(value = "idetudiant") Optional<Long> idetudiant ,
+		@RequestParam(value = "idexamen") String idexamen,
+		@RequestParam(value = "idetudiant") String idetudiant ,
 		HttpServletRequest request) {
 		Connection connection = null;  
-		System.out.println("Test1 = "+idexamen.get());
-		System.out.println("Test2 = "+idetudiant.get());
+		System.out.println("Test1 = "+idexamen);
+		System.out.println("Test2 = "+idetudiant);
 		 Examen examen = null;
 		try {
 			connection = UtilDb.getConnection();
-			examen = ExamenMetier.listeExamenBy(connection, (long)idexamen.get());
-			ExamenDetailMetier.insertExamenDetail(connection, (long)idexamen.get(), (long)idetudiant.get());   
+			examen = ExamenMetier.listeExamenBy(connection, Long.parseLong(idexamen));
+			
+			System.out.println("exam = "+examen.getDateexamen());
+			ExamenDetailMetier.insertExamenDetail(connection, Long.parseLong(idexamen), Long.parseLong(idetudiant));   
 		}  catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute( "status", "error");
@@ -233,7 +243,7 @@ public class HomeController {
 		} finally {
 			closeConnection(connection);
 		} 
-		return "redirect:/saveexamDetail-S"+examen.getId()+"/"+idexamen.get();
+		return "redirect:/saveexamDetail-S"+examen.getSemestre()+"/"+idexamen;
 	}
 	
 	@RequestMapping(value = "/redirection-test")

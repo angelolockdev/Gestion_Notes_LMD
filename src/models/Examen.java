@@ -35,6 +35,17 @@ public class Examen extends BaseModel{
 		this.dateexamen = dateexamen;
 	} 
 	
+	public Examen(Long id, String table) {
+		super(id, table);
+	}
+
+	public Examen(Long id, String table, Long idniveau, Date dateexamen, Integer semestre) {
+		super(id, table);
+		this.idniveau = idniveau;
+		this.dateexamen = dateexamen;
+		this.semestre = semestre;
+	}
+
 	public Examen() {
 		super();
 	}  

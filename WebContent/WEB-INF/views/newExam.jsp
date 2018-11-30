@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico"> 
     <title>Notes-LMD</title> 
     <!-- Bootstrap core CSS -->
     <link href="<c:url value="/assets/css/bootstrap.min.css" />" rel="stylesheet"> 

@@ -12,24 +12,36 @@ import dao.BaseDao;
 import models.Examen;  
 public class ExamenMetier {
  
-	public static  List<Examen> listeExamen(Connection connection, int limit, int page) throws SQLException {
+	public static  List<Examen> listeExamen(Connection connection, long idniveau, int limit, int page) throws SQLException {
 		 Map<String, Object> result = new HashMap<>();
 		 
 		List<Examen> ret = new ArrayList<Examen>() ; 
 		try { 
-			ret = BaseDao.select(connection, "examenview", Examen.class, null, null, "DESC", limit, page); 
+			ret = BaseDao.select(connection, "examenview", Examen.class, "idniveau=?", "idniveau, dateexamen, semestre", "DESC", limit, page ,idniveau ); 
 			result.put("listeExamens", ret);
 		} catch (SQLException e) {
 			throw e;
 		}
 		return ret;
 	}
-	public static Examen listeExamenBy(Connection connection, long id) throws SQLException {
+	public static  List<Examen> listeExamen2(Connection connection,int limit, int page) throws SQLException {
+		 Map<String, Object> result = new HashMap<>();
+		 
+		List<Examen> ret = new ArrayList<Examen>() ; 
+		try { 
+			ret = BaseDao.select(connection, "examenview", Examen.class, null, null, "DESC", limit, page ); 
+			result.put("listeExamens", ret);
+		} catch (SQLException e) {
+			throw e;
+		}
+		return ret;
+	}
+	public static Examen listeExamenBy(Connection connection, Long id) throws SQLException {
 		//Map<String, Object> result = new HashMap<>();
 		 
 		Examen  ret = new Examen () ; 
 		try {
-			
+			System.out.println("Test long = "+id);
 			ret = BaseDao.findById(connection, "examen", Examen.class, id) ;
 		 
 			//result.put("listeNotes", ret);
