@@ -8,11 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import dao.BaseDao;
-import models.Etudiant;
-import models.ExamenDetail;
 import models.Notes;
-import models.ResultatExamen;
-import utils.MentionUtils;  
+import models.ResultatExamen;  
 
 public class NotesMetier {
  
@@ -41,49 +38,24 @@ public class NotesMetier {
 		return result;
 	}
 
-	public static void insertNotes(Connection connection, long idetudiant, long[] idmatiere, long idexamen, double[] notes) throws Exception {
-	 
-		try { 
-			List<ExamenDetail> listeEtude = BaseDao.select(connection, "examendetail", ExamenDetail.class, "idetudiant = ? ", null, null, 0, 1, idetudiant);
-			ExamenDetail detail = new ExamenDetail();
-			for(ExamenDetail i : listeEtude) {
-				if(i.getIdexamen()==idexamen) {
-					detail = i;
-				}
-			} 
-			System.out.println("exDet === "+detail.getId());
-			System.out.println(" === "+detail.getId());
-			Notes temp = new Notes();
-			temp.setIdmatiere(idmatiere[0]);
-			temp.setIdexamendetail(detail.getId()); 
-			temp.setNote(notes[0]);
-			temp.setNoterepechage(Double.valueOf("0"));
-			temp.setMention(MentionUtils.checkMention((int)notes[0]));
-			 
-			System.out.println("print === "+temp.print());
-			
-			//BaseDao.insert(connection, temp);
-			/*for(int i=0 ; i<notes.length;i++) {
-				
-				Notes temp = new Notes();
-				temp.setIdetudiant(idetudiant);
-				temp.setIdmatiere(idmatiere[i]);
-				temp.setIdexamen(idexamen); 
-				temp.setNote(notes[i]);
-				temp.setNoterepechage(Double.valueOf("0"));
-				temp.setMention(MentionUtils.checkMention((int)notes[i]));
-				
-				
-				System.out.println("print === "+temp.print());
-				BaseDao.insert(connection, temp);
-				System.out.println("INSERTION Notes");
-			} */
+	public static void insertNotes(Connection connection, long idetudiant, long idmatiere, double note, String anneedeb, String anneefin, int mention) throws Exception {
+		Notes insert = new Notes();
+		
+		insert.setIdetudiant(idetudiant); 
+		insert.setIdmatiere(idmatiere); 
+		insert.setNote(note);
+		insert.setAnneedeb(anneedeb);
+		insert.setAnneefin(anneefin);
+		insert.setMention(mention);
+		try {
+		
+			BaseDao.insert(connection, insert);
 		
 		} catch(SQLException e) {
 			if(e.getSQLState().equals("23000"))
 				throw new Exception("Vous avez déjà inserer note a celle-ci!");
 			else
-				e.printStackTrace();
+				throw e;
 		}
 	}
 	public static void deleteNotes(Connection connection, long idnotes ) throws Exception{

@@ -50,7 +50,8 @@ create table notes(
 	idmatiere bigint,
 	idexamendetail bigint,
 	note double precision,
-	noterepechage double precision, 
+	noterepechage double precision,
+	anneedeb varchar(4), 
 	mention integer null,
 	foreign key (idexamendetail) references examendetail(id),
 	foreign key (idmatiere) references matiere(id))Engine=InnoDB;

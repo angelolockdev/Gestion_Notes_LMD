@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import dao.BaseDao;
 import dao.UtilDb;
 import helpers.DateHelper;
 import metiers.EtudiantsMetier;
@@ -27,18 +26,13 @@ import metiers.ExamenDetailMetier;
 import metiers.ExamenMetier;
 import metiers.MatiereMetier;
 import metiers.NiveauMetier;
-import metiers.NotesMetier;
 import models.Categorie;
 import models.Etudiant;
 import models.ExamTemp;
 import models.Examen;
 import models.ExamenDetail;
 import models.Matiere;
-import models.Niveau;
-import models.Notes;
-import models.ResultatExamen;
-import models.ResultatNotes;
-import models.ResultatTemp;
+import models.Niveau; 
 import utils.MentionUtils; 
 
 @Controller
@@ -208,16 +202,17 @@ public class HomeController {
 			etudiants = EtudiantsMetier.listeEtudiants(connection);
 			examDet = ExamenDetailMetier.listeExamenDetail(connection, 15, 1);
 			examen = ExamenMetier.listeExamenBy(connection, Long.valueOf(id));
-			
 			//ExamenMetier.insertExamen(connection, idniveau, dateexamen);   
 			for(int i=0;i<exam.size();i++) {
 				examtemp.add(new ExamTemp(exam.get(i), examDet.get(i)));
 			}
 			model.addAttribute( "etudiants", etudiants);
 			model.addAttribute( "examen", examen);
+			model.addAttribute( "semestre", semestre);
 			model.addAttribute( "examtemp", examtemp);
 			
-		} catch (Exception e) {
+		}  catch (Exception e) {
+			e.printStackTrace();
 			model.addAttribute( "status", "error");
 			e.printStackTrace();
 			model.addAttribute( "message", e.getMessage());
@@ -232,12 +227,15 @@ public class HomeController {
 		@RequestParam(value = "idetudiant") String idetudiant ,
 		HttpServletRequest request) {
 		Connection connection = null;  
+		System.out.println("Test1 = "+idexamen);
+		System.out.println("Test2 = "+idetudiant);
 		 Examen examen = null;
 		try {
 			connection = UtilDb.getConnection();
 			examen = ExamenMetier.listeExamenBy(connection, Long.parseLong(idexamen));
 			
-			ExamenDetailMetier.insertExamenDetail(connection, new ExamenDetail(Long.valueOf(idexamen), Long.valueOf(idetudiant)));   
+			System.out.println("exam = "+examen.getDateexamen());
+			ExamenDetailMetier.insertExamenDetail(connection, Long.parseLong(idexamen), Long.parseLong(idetudiant));   
 		}  catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute( "status", "error");
@@ -246,127 +244,6 @@ public class HomeController {
 			closeConnection(connection);
 		} 
 		return "redirect:/saveexamDetail-S"+examen.getSemestre()+"/"+idexamen;
-	}
-	@RequestMapping(value = "/exam-S{semestre}/{idetudiant}")
-	public String ajoutNotes(Model model,
-			@PathVariable(value = "semestre") String semestre,
-			@PathVariable(value = "idetudiant") String idetudiant) {
-		Connection connection = null;   
-		List<Matiere> matieres = null;
-		try {
-			connection = UtilDb.getConnection();
-			matieres = MatiereMetier.getListeMatiereBySemestre(connection, Integer.valueOf(semestre));
-			/*OPTIONS*/
-			List<Matiere> obligatoire = new ArrayList<>();
-			List<Matiere> web = new ArrayList<>();
-			List<Matiere> dev = new ArrayList<>();
-			List<Matiere> reseau = new ArrayList<>();
-			for(Matiere m : matieres){
-				if(m.getOptionM()!=100) {
-					obligatoire.add(m);
-				}else if(m.getOptionM()!=10) {
-					dev.add(m);
-				}else if(m.getOptionM()!=20) {
-					web.add(m);
-				}else {
-					reseau.add(m);
-				}
-				//System.out.println(" "+m.getAbreviation()+" "+m.getDesignation()+" "+m.getIntitule());
-			}
-
-			ExamenDetail idexamen = BaseDao.findOne(connection, "examendetail", ExamenDetail.class, "idetudiant=?", Long.valueOf(idetudiant));
-			
-			model.addAttribute("idexamen", idexamen.getIdexamen());
-			model.addAttribute("matieres", matieres);
-			model.addAttribute("idetudiant", idetudiant);
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute( "status", "error");
-			model.addAttribute( "message", e.getMessage());
-		} finally {
-			closeConnection(connection);
-		} 
-		
-		return "ajoutnotes";
-	}
-	
-	@RequestMapping(value = "/saveNotes/{idetudiant}")
-	public String saveNotes(Model model,
-			@PathVariable(value = "idetudiant") String idetudiant,
-			@RequestParam(value = "idmatieres") String idmatieres,
-			@RequestParam(value = "notes") String notes,
-			@RequestParam(value = "idexamen") String idexamen) {
-		Connection connection = null;   
-		try { 
-			String[] matierestab = idmatieres.replace(" ", "").split(",");
-			String[] notestab = notes.replace("", "0").split(",");
-			long[] idmatieresTabs = new long[matierestab.length];
-			for (int i = 0; i < matierestab.length; i++) {
-				idmatieresTabs[i] = Long.parseLong(matierestab[i]); 
-			}
-			double[] notesEntiers = MentionUtils.convertStringTab(notestab);  			
-		
-			
-			/*	List<ExamenDetail> listeEtude = BaseDao.select(connection, "examendetail", ExamenDetail.class, null, null, null, 0, 1 );
-			
-			System.out.println("ExamenDetail SIZE = " + listeEtude.size());
-			
-			ExamenDetail detail = new ExamenDetail();
-			for(ExamenDetail i : listeEtude) {
-				if(i.getIdexamen()==Long.valueOf(idexamen)) {
-					detail = i;
-				}
-			} 
-			System.out.println("ExamenDetail = " + detail.getId());*/
-			
-			this.insertNotes2(connection, Long.valueOf(idetudiant), idmatieresTabs, 1, notesEntiers);
-			  
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute( "status", "error");
-			model.addAttribute( "message", e.getMessage());
-		} finally {
-			closeConnection(connection);
-		} 
-		
-		return "ajoutnotes";
-	}
-	
-	@RequestMapping(value = "/resultatNotes/{idetudiant}", method = RequestMethod.GET)
-	public String resultatNotes(Model model, 
-		@PathVariable(value = "idetudiant") String idetudiant ,
-		HttpServletRequest request) {
-		Connection connection = null;  
-		 Examen examen = null;
-		try {
-			 
-			connection = UtilDb.getConnection();
-			List<ResultatNotes> resultatEx = BaseDao.select(connection, "notesexamendetailview", ResultatNotes.class, null, null, null, 0, 1);
-			List<ResultatNotes> unitaire = new ArrayList<ResultatNotes>();
-			for(ResultatNotes i : resultatEx) {
-				if(i.getIdetudiant() == Long.valueOf(idetudiant)) {
-					unitaire.add(i);
-				}
-			}
-			/*examen = ExamenMetier.listeExamenBy(connection, Long.parseLong(idexamen));
-			ExamenDetailMetier.insertExamenDetail(connection, new ExamenDetail(Long.valueOf(idexamen), Long.valueOf(idetudiant)));   
-			 */
-			List<ResultatTemp> resultatTemp = new ArrayList<ResultatTemp>();
-			for(ResultatNotes res : unitaire) {
-				Matiere temp = new Matiere();
-				temp = BaseDao.findById(connection, "matiere", Matiere.class, res.getIdmatiere());
-				resultatTemp.add(new ResultatTemp(res, temp));
-			}
-			model.addAttribute("resultat", resultatTemp);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute( "status", "error");
-			model.addAttribute( "message", e.getMessage());
-		} finally {
-			closeConnection(connection);
-		} 
-		return "resultatNotes";
 	}
 	
 	@RequestMapping(value = "/redirection-test")
@@ -386,42 +263,6 @@ public class HomeController {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
-	}
-	
-	public void insertNotes2(Connection connection, long idetudiant, long[] idmatiere, long idexamendetail, double[] notes) throws Exception {
-		 
-		try {  
-			System.out.println("exDet === "+idexamendetail); 
-			Notes temp = new Notes();
-			temp.setIdmatiere(idmatiere[0]);
-			temp.setIdexamendetail(idexamendetail); 
-			temp.setNote(notes[0]);
-			temp.setNoterepechage(Double.valueOf("0"));
-			temp.setMention(MentionUtils.checkMention((int)notes[0]));
-			 
-			System.out.println("print === "+temp.print()); 
-			
-			BaseDao.insert(connection, temp);
-			/*for(int i=0 ; i<notes.length;i++) {
-				
-				Notes temp = new Notes();
-				temp.setIdetudiant(idetudiant);
-				temp.setIdmatiere(idmatiere[i]);
-				temp.setIdexamen(idexamen); 
-				temp.setNote(notes[i]);
-				temp.setNoterepechage(Double.valueOf("0"));
-				temp.setMention(MentionUtils.checkMention((int)notes[i]));
-				
-				
-				System.out.println("print === "+temp.print());
-				BaseDao.insert(connection, temp);
-				System.out.println("INSERTION Notes");
-			} */
-		
-		} catch( Exception e) {
-			 
-				e.printStackTrace();
 		}
 	}
 }

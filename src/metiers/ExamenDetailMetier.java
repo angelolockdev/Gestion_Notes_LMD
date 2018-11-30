@@ -17,7 +17,6 @@ public class ExamenDetailMetier {
 		List<ExamenDetail> ret = new ArrayList<ExamenDetail>() ; 
 		try { 
 			ret = BaseDao.select(connection, "examendetailetudiantview", ExamenDetail.class, null, null, "DESC", limit, page); 
-			System.out.println("===> SIZE examendetailetudiantview = "+ret.size());
 			result.put("listeExamenDetails", ret);
 		} catch (SQLException e) {
 			throw e;
@@ -31,7 +30,7 @@ public class ExamenDetailMetier {
 		try {
 			
 			ret = BaseDao.select(connection, "examendetail", ExamenDetail.class, "idetudiant = ?", null, null, 0, 1, id);
-			System.out.println("===> SIZE liste Examen DetailBy = "+ret.size());
+		 
 			//result.put("listeNotes", ret);
 		} catch (SQLException e) {
 			throw e;	
@@ -39,14 +38,12 @@ public class ExamenDetailMetier {
 		return ret;
 	}
 
-	public static void insertExamenDetail(Connection connection, ExamenDetail insert) throws Exception {
-		ExamenDetail test = null;
+	public static void insertExamenDetail(Connection connection, long idexamen, long idetudiant) throws Exception {
+		ExamenDetail insert = new ExamenDetail();
+		
+		insert.setIdexamen(idexamen);  
+		insert.setIdetudiant(idetudiant);  
 		try {
-			test = BaseDao.findOne(connection, "examendetail", ExamenDetail.class, "idetudiant = ?, idexamen = ?", insert.getIdetudiant(),insert.getIdexamen());
-			
-			if(test!=null){
-				throw new Exception("Vous avez déjà inserer ExamenDetail d'étude a celle-ci!");
-			}
 		
 			BaseDao.insert(connection, insert);
 		

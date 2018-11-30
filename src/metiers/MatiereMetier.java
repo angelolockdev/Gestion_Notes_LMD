@@ -37,19 +37,6 @@ public class MatiereMetier {
 		}
 		return result;
 	}
-	public static  List<Matiere> getListeMatiereBySemestre(Connection connection, Integer semestre) throws SQLException {
-		List<Matiere> ret = new ArrayList<Matiere>() ;  
-		try { 
-			ret = BaseDao.select(connection, "matierebyniveauview", Matiere.class, "semestre = ?", null, null, 0, 1, semestre); 
-			 System.out.println("========> ret.size = "+ret.size());
-			 for(Matiere m : ret){
-					System.out.println(" "+m.getAbreviation()+" "+m.getDesignation()+" "+m.getIntitule());
-				}
-		} catch (SQLException e) {
-			throw e;
-		}
-		return ret;
-	}
 	public static Matiere listeMatiereBy(Connection connection, long id) throws SQLException {
 		//Map<String, Object> result = new HashMap<>();
 		 

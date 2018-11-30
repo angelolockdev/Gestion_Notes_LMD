@@ -4,8 +4,13 @@ import utils.DateSimple;
 
 public class ExamenDetail extends BaseModel{ 
 	 
+<<<<<<< HEAD
 	private Examen examen;
 	private Etudiant etudiant;
+=======
+	private long idexamen;
+	private long idetudiant;
+>>>>>>> parent of 5e4e073... Too much : NullPointer Exception
 	 
 	private transient String nom;
 	private transient String prenom; 
@@ -14,7 +19,14 @@ public class ExamenDetail extends BaseModel{
 	
 	private transient String numeromatricule;
 	
+<<<<<<< HEAD
 	 
+=======
+	public long getIdexamen() {
+		return idexamen;
+	}
+ 
+>>>>>>> parent of 5e4e073... Too much : NullPointer Exception
 	public String getNom() {
 		return nom;
 	}
@@ -55,7 +67,21 @@ public class ExamenDetail extends BaseModel{
 		this.numeromatricule = numeromatricule;
 	}
 
+<<<<<<< HEAD
 	 
+=======
+	public void setIdexamen(long idexamen) {
+		this.idexamen = idexamen;
+	}
+ 
+	public long getIdetudiant() {
+		return idetudiant;
+	}
+	
+	public void setIdetudiant(long idetudiant) {
+		this.idetudiant = idetudiant;
+	}
+>>>>>>> parent of 5e4e073... Too much : NullPointer Exception
  
 	public ExamenDetail(Long id, String table) {
 		super(id, table);
@@ -86,6 +112,7 @@ public class ExamenDetail extends BaseModel{
 		this.numeromatricule = numeromatricule;
 	}
 
+<<<<<<< HEAD
 	public Examen getExamen() {
 		return examen;
 	}
@@ -102,6 +129,8 @@ public class ExamenDetail extends BaseModel{
 		this.etudiant = etudiant;
 	}
 
+=======
+>>>>>>> parent of 5e4e073... Too much : NullPointer Exception
 	public ExamenDetail() {
 	}  
 	 
