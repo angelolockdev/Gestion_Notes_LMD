@@ -1,26 +1,37 @@
 package models;
 
-import utils.DateSimple;
+import java.sql.Date;
+ 
 
 public class Examen extends BaseModel{ 
 	 
-	private String idniveau;
-	private DateSimple dateexamen;
+	private Long idniveau;
+	private Date dateexamen;
 	
-  
-	public String getIdniveau() {
+
+	private transient Integer semestre;
+	
+	public Integer getSemestre() {
+		return semestre;
+	}
+
+	public void setSemestre(Integer semestre) {
+		this.semestre = semestre;
+	}
+
+	public Long getIdniveau() {
 		return idniveau;
 	} 
 
-	public void setIdniveau(String idniveau) {
+	public void setIdniveau(Long idniveau) {
 		this.idniveau = idniveau;
 	} 
 	
-	public DateSimple getDateexamen() {
+	public Date getDateexamen() {
 		return dateexamen;
 	} 
 
-	public void setDateexamen(DateSimple dateexamen) {
+	public void setDateexamen(Date dateexamen) {
 		this.dateexamen = dateexamen;
 	} 
 	

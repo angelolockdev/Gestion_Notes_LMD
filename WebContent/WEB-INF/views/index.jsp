@@ -23,6 +23,7 @@
       <!-- HEADER -->
       <main role="main">
         <div class=""> 
+        	<a class="btn btn-info" href="<c:url value="/newExam" />">Créer une nouvelle examen</a>
 	      	 <h3>Liste des étudiants</h3>
 		     <div class="row">  
 		        <div class="col-md-8">

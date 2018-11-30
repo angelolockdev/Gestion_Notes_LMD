@@ -4,7 +4,7 @@ package models;
 public class Niveau extends BaseModel{
 	   
 	private String intitule;
-	private String semestre;
+	private Integer semestre;
 	 
 	
 	public Niveau() {
@@ -13,7 +13,7 @@ public class Niveau extends BaseModel{
 	public Niveau(Long id, String table) {
 		super(id, table);
 	}
-	public Niveau(Long id, String table , String intitule, String semestre) {
+	public Niveau(Long id, String table , String intitule, Integer semestre) {
 		super(id, table); 
 		this.intitule = intitule;
 		this.semestre = semestre;
@@ -25,10 +25,10 @@ public class Niveau extends BaseModel{
 	public void setIntitule(String intitule) {
 		this.intitule = intitule;
 	}
-	public String getSemestre() {
+	public Integer getSemestre() {
 		return semestre;
 	}
-	public void setSemestre(String semestre) {
+	public void setSemestre(Integer semestre) {
 		this.semestre = semestre;
 	} 
 

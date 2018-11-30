@@ -43,9 +43,9 @@
 		              	
 		              	<div class="col-md-6 mb-3">
 			               	<label for="matiere">Matieres</label>
-		                	 <select class="custom-select d-block w-100" id="matiere" name="matiere" required>
+		                	 <select id="changeable" class="custom-select d-block w-100" id="matiere" name="matiere" required>
 		                  		<option value=""></option>
-				                <div id="changeable">
+				                
 				                <!--  <c:forEach var="entry" items="${listeMatieres}">
 			                  	<option value="<c:out value="${entry.id }" />"><c:out value="${entry.designation}" /> | UE: <c:out value="${entry.abreviation}" /> | Coeff: <c:out value="${entry.coefficient}" /></option>
 				                  </c:forEach>-->

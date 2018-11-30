@@ -14,7 +14,7 @@ import utils.DateSimple;
 
 public class EtudiantsMetier {
  
-	public static  Map<String, Object> listeEtudiants(Connection connection) throws SQLException {
+	public static  List<Etudiant> listeEtudiants(Connection connection) throws SQLException {
 		 Map<String, Object> result = new HashMap<>();
 		 
 		List<Etudiant> ret = new ArrayList<Etudiant>() ; 
@@ -25,7 +25,7 @@ public class EtudiantsMetier {
 		} catch (SQLException e) {
 			throw e;
 		}
-		return result;
+		return ret;
 	}
 	public static  Map<String, Object> getEtutiantById(Connection connection, long id) throws SQLException {
 		 Map<String, Object> result = new HashMap<>();

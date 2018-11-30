@@ -11,7 +11,7 @@ import dao.BaseDao;
 import models.Niveau; 
 public class NiveauMetier {
  
-	public static  Map<String, Object> listeNiveau(Connection connection) throws SQLException {
+	public static  List<Niveau>  listeNiveau(Connection connection) throws SQLException {
 		 Map<String, Object> result = new HashMap<>();
 		 
 		List<Niveau> ret = new ArrayList<Niveau>() ; 
@@ -21,7 +21,7 @@ public class NiveauMetier {
 		} catch (SQLException e) {
 			throw e;
 		}
-		return result;
+		return ret;
 	}
 	public static Niveau listeNiveauBy(Connection connection, long id) throws SQLException {
 		//Map<String, Object> result = new HashMap<>();
@@ -38,10 +38,9 @@ public class NiveauMetier {
 		return ret;
 	}
 
-	public static void insertNiveau(Connection connection, String filiere, String intitule, String semestre) throws Exception {
+	public static void insertNiveau(Connection connection, String intitule, Integer semestre) throws Exception {
 		Niveau insert = new Niveau();
 		
-		insert.setFiliere(filiere); 
 		insert.setIntitule(intitule); 
 		insert.setSemestre(semestre); 
 		try {

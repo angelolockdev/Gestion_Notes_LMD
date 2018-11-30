@@ -15,8 +15,15 @@ public class Etudiant extends BaseModel{
 	private DateSimple datenaissance; 
 	
 	private String numeromatricule;
- 
 	
+	private transient String filiere;
+	
+	public String getFiliere() {
+		return filiere;
+	}
+	public void setFiliere(String filiere) {
+		this.filiere = filiere;
+	}
 	public String getLieunaissance() {
 		return lieunaissance;
 	}

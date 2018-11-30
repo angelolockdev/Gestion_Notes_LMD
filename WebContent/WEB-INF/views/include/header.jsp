@@ -10,7 +10,7 @@
                 <a class="nav-link" href="<c:url value="/"/>">Accueil <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value="/categorie-details/1?param1=22&param2=Test" />">Listes des Matières</a>
+                <a class="nav-link" href="<c:url value="/newExam" />">Listes des examens</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Etudiants</a>
@@ -25,7 +25,7 @@
         </li>-->
         </ul>
         <form class="form-inline my-2 my-md-0">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+            <input class="form-control" type="text" placeholder="Rechercher" aria-label="Rechercher">
         </form>
     </div>
 </nav>

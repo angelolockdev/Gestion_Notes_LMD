@@ -21,3 +21,9 @@ create or replace view matiereniveauview as select
   n.semestre 
 FROM matiere m 
 JOIN niveau n ON m.idniveau = n.id; 
+
+create or replace view examenview as select 
+  ex.*,
+  n.semestre 
+FROM examen ex 
+JOIN niveau n ON n.id = ex.idniveau; 

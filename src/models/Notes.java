@@ -12,6 +12,12 @@ public class Notes extends BaseModel{
 	private Integer mention;
 	
 	
+	public Long getIdexamen() {
+		return idexamen;
+	}
+	public void setIdexamen(Long idexamen) {
+		this.idexamen = idexamen;
+	}
 	public Double getNoterepechage() {
 		return noterepechage;
 	}

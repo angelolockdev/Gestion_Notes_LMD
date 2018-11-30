@@ -37,18 +37,23 @@ create table examen(
 	dateexamen date, 
 	foreign key (idniveau) references niveau(id))Engine=InnoDB;
 
+create table examendetail(
+	id bigint AUTO_INCREMENT PRIMARY KEY,
+	idexamen bigint,
+	idetudiant bigint, 
+	foreign key (idexamen) references examen(id),
+	foreign key (idetudiant) references etudiant(id))Engine=InnoDB;
+
 	
 create table notes(
 	id bigint AUTO_INCREMENT PRIMARY KEY,
-	idetudiant bigint,
 	idmatiere bigint,
-	idexamen bigint,
+	idexamendetail bigint,
 	note double precision,
 	noterepechage double precision,
 	anneedeb varchar(4), 
 	mention integer null,
-	foreign key (idetudiant) references etudiant(id),
-	foreign key (idexamen) references examen(id),
+	foreign key (idexamendetail) references examendetail(id),
 	foreign key (idmatiere) references matiere(id))Engine=InnoDB;
 	
 /*	

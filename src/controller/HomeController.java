@@ -1,17 +1,17 @@
 package controller;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.sql.SQLException; 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.sql.Date; 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +20,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.UtilDb;
+import helpers.DateHelper;
 import metiers.EtudiantsMetier;
+import metiers.ExamenDetailMetier;
+import metiers.ExamenMetier;
 import metiers.MatiereMetier;
+import metiers.NiveauMetier;
 import models.Categorie;
 import models.Etudiant;
+import models.Examen;
+import models.ExamenDetail;
 import models.Matiere;
+import models.Niveau; 
 import utils.MentionUtils; 
 
 @Controller
@@ -34,12 +41,12 @@ public class HomeController {
 		Connection connection = null;
 		try {
 			connection = UtilDb.getConnection();
-			Map<String, Object> result = EtudiantsMetier.listeEtudiants(connection); 
+			List<Etudiant> result = EtudiantsMetier.listeEtudiants(connection); 
 			@SuppressWarnings("unchecked")
-			List<Etudiant> liste = (List<Etudiant>) result.get("listeEtudiants");
+			List<Etudiant> liste = result;
 			System.out.println("Size Etudiants = "+liste.size());
 			for(Etudiant temp : liste) {   
-				System.out.println(" Etudiant : "+temp.getNumeromatricule()+" , "+temp.getNom()+" , "+temp.getPrenom() +" , "+temp.getLieunaissance()+" , "+temp.getDatenaissance()+" , "+temp.getFiliere());
+				System.out.println(" Etudiant : "+temp.getNumeromatricule()+" , "+temp.getNom()+" , "+temp.getPrenom() +" , "+temp.getLieunaissance()+" , "+temp.getDatenaissance());
 			} 
 			map.put("listeEtudiant", liste); 
 			
@@ -126,6 +133,108 @@ public class HomeController {
 		return result;
 	}
 	
+	@RequestMapping(value = {"/newExam", "/newExam/error-{type}"})
+	public String nouvelleExam(Model model,
+		@PathVariable(value = "type") Optional<Integer> type) {
+		Connection connection = null;
+		List<Examen> result = new ArrayList<Examen>();
+		List<Niveau> niveaux = new ArrayList<Niveau>();
+		try {
+			connection = UtilDb.getConnection();
+			result = ExamenMetier.listeExamen(connection, 15, 1);
+			niveaux = NiveauMetier.listeNiveau(connection) ;
+			if(type.isPresent()) {
+				model.addAttribute("error", type.get());
+			}
+			
+			model.addAttribute("listeExamen", result);
+			model.addAttribute("niveaux", niveaux);
+		}  catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute( "status", "error");
+			model.addAttribute( "message", e.getMessage());
+		} finally {
+			closeConnection(connection);
+		}
+		return "newExam";
+	}
+	@RequestMapping(value = "/saveExam", method = RequestMethod.POST)
+	public String saveExam(Model model,
+		@RequestParam(value = "idniveau") long idniveau,
+		@RequestParam(value = "dateexamen") Date dateexamen ,
+		HttpServletRequest request) {
+		Connection connection = null;  
+		Niveau niv = null;
+		Date dat = null;
+		try {
+			connection = UtilDb.getConnection();
+			niv = NiveauMetier.listeNiveauBy(connection, idniveau);
+			
+			ExamenMetier.insertExamen(connection, idniveau, dateexamen);  
+		}  catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute( "status", "error");
+			model.addAttribute( "message", e.getMessage());
+		} finally {
+			closeConnection(connection);
+		}
+		if(niv==null) {
+			return "redirect:/newExam/error-1";
+		} 
+		return "redirect:/newExam";
+	}
+	
+	@RequestMapping(value = "/saveexamDetail-S{semestre}/{id}", method = RequestMethod.GET)
+	public String saveExam(Model model,
+		@PathVariable(value = "semestre") long semestre,
+		@PathVariable(value = "id") long id,
+		HttpServletRequest request) {
+		Connection connection = null;  
+		List<Etudiant> etudiants = null;
+		List<ExamenDetail> examDet = null;
+		Examen examen = null;
+		try {
+			connection = UtilDb.getConnection();
+			etudiants = EtudiantsMetier.listeEtudiants(connection);
+			examDet = ExamenDetailMetier.listeExamenDetail(connection, 15, 1);
+			examen = ExamenMetier.listeExamenBy(connection, id);
+			//ExamenMetier.insertExamen(connection, idniveau, dateexamen);   
+			
+			model.addAttribute( "examen", examen);
+			model.addAttribute( "semestre", semestre);
+			model.addAttribute( "etudiants", etudiants);
+			model.addAttribute( "examDet", examDet);
+		}  catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute( "status", "error");
+			model.addAttribute( "message", e.getMessage());
+		} finally {
+			closeConnection(connection);
+		} 
+		return "newExamDetail";
+	} 
+	@RequestMapping(value = "/saveEtudiantExamDetail", method = RequestMethod.POST)
+	public String saveEtudiantExamDetail(Model model,
+		@RequestParam(value = "idexamen") Optional<Long> idexamen,
+		@RequestParam(value = "idetudiant") Optional<Long> idetudiant ,
+		HttpServletRequest request) {
+		Connection connection = null;  
+		System.out.println("Test1 = "+idexamen.get());
+		System.out.println("Test2 = "+idetudiant.get());
+		 Examen examen = null;
+		try {
+			connection = UtilDb.getConnection();
+			examen = ExamenMetier.listeExamenBy(connection, (long)idexamen.get());
+			ExamenDetailMetier.insertExamenDetail(connection, (long)idexamen.get(), (long)idetudiant.get());   
+		}  catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute( "status", "error");
+			model.addAttribute( "message", e.getMessage());
+		} finally {
+			closeConnection(connection);
+		} 
+		return "redirect:/saveexamDetail-S"+examen.getId()+"/"+idexamen.get();
+	}
 	
 	@RequestMapping(value = "/redirection-test")
 	public String redirectionTest() {

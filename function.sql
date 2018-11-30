@@ -1,13 +1,16 @@
 /*FUNCTION*/
 /*calculMoyenne(idEtudiant bigint )*/
 DELIMITER $$
-CREATE FUNCTION calculMoyenne(idEtudiant bigint ) RETURNS double precision
+CREATE FUNCTION calculMoyenne(idEtudiant bigint, idExamenDetail bigint ) RETURNS double precision
 BEGIN
 	declare moyenne double precision;
 	select sum(nt.note*getCoeff(nt.idmatiere))/sum(getCoeff(nt.idmatiere)) into moyenne 
 		from matiere m
 		join notes nt
-		where nt.idetudiant = idEtudiant;
+		ON nt.idexamendetail = idExamenDetail
+		join examendetail exd
+		on exd.id = idExamenDetail
+		where exd.idetudiant = idEtudiant;
 	return moyenne;
 END$$
 DELIMITER ;	
