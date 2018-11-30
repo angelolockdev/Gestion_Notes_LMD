@@ -8,7 +8,7 @@ import utils.DateSimple;
 public class Etudiant extends BaseModel{
 	public static final String PRETORIAT = "ETU";
 	  
-	private Universite universite; 
+	private Long iduniversite; 
 	private String nom;
 	private String prenom; 
 	private String lieunaissance;
@@ -32,11 +32,12 @@ public class Etudiant extends BaseModel{
 	}
 
 	 
-	public Universite getUniversite() {
-		return universite;
+	 
+	public Long getIduniversite() {
+		return iduniversite;
 	}
-	public void setUniversite(Universite universite) {
-		this.universite = universite;
+	public void setIduniversite(Long iduniversite) {
+		this.iduniversite = iduniversite;
 	}
 	public Etudiant(String nom, String prenom) {
 		super();

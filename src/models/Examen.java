@@ -5,7 +5,7 @@ import java.sql.Date;
 
 public class Examen extends BaseModel{ 
 	 
-	private Niveau niveau;
+	private Long idniveau;
 	private Date dateexamen;
 	
 
@@ -20,12 +20,13 @@ public class Examen extends BaseModel{
 	}
  
 	
-	public Niveau getNiveau() {
-		return niveau;
+	 
+	public Long getIdniveau() {
+		return idniveau;
 	}
 
-	public void setNiveau(Niveau niveau) {
-		this.niveau = niveau;
+	public void setIdniveau(Long idniveau) {
+		this.idniveau = idniveau;
 	}
 
 	public Date getDateexamen() {
@@ -39,13 +40,7 @@ public class Examen extends BaseModel{
 	public Examen(Long id, String table) {
 		super(id, table);
 	}
-
-	public Examen(Long id, String table, Niveau niveau, Date dateexamen, Integer semestre) {
-		super(id, table);
-		this.niveau = niveau;
-		this.dateexamen = dateexamen;
-		this.semestre = semestre;
-	}
+ 
 
 	public Examen() {
 		super();
