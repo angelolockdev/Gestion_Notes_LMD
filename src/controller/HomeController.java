@@ -43,7 +43,7 @@ public class HomeController {
 		try {
 			connection = UtilDb.getConnection();
 			List<Etudiant> result = EtudiantsMetier.listeEtudiants(connection); 
-			@SuppressWarnings("unchecked")
+			
 			List<Etudiant> liste = result;
 			System.out.println("Size Etudiants = "+liste.size());
 			for(Etudiant temp : liste) {   
